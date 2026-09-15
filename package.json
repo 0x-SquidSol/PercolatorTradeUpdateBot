@@ -9,6 +9,7 @@
     "start": "tsx src/index.ts",
     "once": "tsx src/index.ts --once",
     "compose": "tsx src/index.ts --compose-now",
+    "backfill": "tsx src/index.ts --backfill",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

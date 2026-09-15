@@ -1,5 +1,5 @@
 import { CONFIG, TRACKED_REPOS } from "./config.js";
-import { commitsSince, getHead, mergedPRsSince } from "./github.js";
+import { commitBefore, commitsSince, getHead, mergedPRsSince } from "./github.js";
 import { draftPost } from "./compose.js";
 import { writeDraft } from "./draft.js";
 import { loadState, repoKey, saveState, type State } from "./state.js";
@@ -53,6 +53,45 @@ export async function pollOnce(state: State): Promise<number> {
 
   await saveState(state);
   return newCount;
+}
+
+/**
+ * Seed `pending` from the last `days` of history across all repos, so the first
+ * draft has real material instead of waiting a full cycle. For testing/tuning.
+ */
+export async function backfill(state: State, days: number): Promise<number> {
+  const now = new Date();
+  const sinceIso = new Date(now.getTime() - days * 86_400_000).toISOString();
+  let n = 0;
+
+  for (const repo of TRACKED_REPOS) {
+    const key = repoKey(repo.owner, repo.name);
+    const head = await getHead(repo);
+    if (!head) continue;
+
+    const [commits, prs, base] = await Promise.all([
+      commitsSince(repo, sinceIso),
+      mergedPRsSince(repo, sinceIso),
+      commitBefore(repo, sinceIso),
+    ]);
+
+    for (const c of commits) {
+      state.pending.push({ kind: "commit", repo: key, sha: c.sha, message: c.message, author: c.author, url: c.url, at: c.at });
+      n++;
+    }
+    for (const pr of prs) {
+      state.pending.push({ kind: "pr", repo: key, number: pr.number, title: pr.title, body: pr.body, author: pr.author, url: pr.url, at: pr.at });
+      n++;
+    }
+
+    state.repos[key] = { lastPollAt: now.toISOString(), lastSeenSha: head.sha, lastPostedSha: base };
+    if (commits.length || prs.length) {
+      console.log(`[backfill] ${key}: +${commits.length} commits, +${prs.length} merged PRs`);
+    }
+  }
+
+  await saveState(state);
+  return n;
 }
 
 function dueToPost(state: State, now = Date.now()): boolean {

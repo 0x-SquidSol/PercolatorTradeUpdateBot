@@ -46,10 +46,14 @@ cp .env.example .env      # fill in GITHUB_TOKEN and ANTHROPIC_API_KEY
 ## Run
 
 ```bash
-npm run once          # single poll pass, no drafting (smoke test / cron)
-npm run compose       # draft now from whatever's pending (test the writer)
-npm start             # the daemon (watch + draft on cadence)
+npm run once            # single poll pass, no drafting (smoke test / cron)
+npm run backfill -- 7   # seed from the last 7 days + draft now (see a sample immediately)
+npm run compose         # draft now from whatever's pending (test the writer)
+npm start               # the daemon (watch + draft on cadence)
 ```
+
+`backfill` is the fastest way to see a real draft and tune `prompts/post-system.md`
+before committing to the cadence.
 
 Keep it alive on a box with pm2:
 

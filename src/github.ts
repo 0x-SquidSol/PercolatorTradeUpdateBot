@@ -70,6 +70,22 @@ export async function commitsSince(repo: RepoConfig, sinceIso: string): Promise<
   }
 }
 
+/** Latest commit at or before `iso` — the diff base for a backfilled window. */
+export async function commitBefore(repo: RepoConfig, iso: string): Promise<string | null> {
+  try {
+    const { data } = await octokit.repos.listCommits({
+      owner: repo.owner,
+      repo: repo.name,
+      until: iso,
+      per_page: 1,
+    });
+    return data[0]?.sha ?? null;
+  } catch (err) {
+    if (isMissing(err)) return null;
+    throw err;
+  }
+}
+
 /** PRs merged strictly after `sinceIso` (the richest unit for a changelog). */
 export async function mergedPRsSince(repo: RepoConfig, sinceIso: string): Promise<PRInfo[]> {
   try {

@@ -1,5 +1,5 @@
 import { CONFIG } from "./config.js";
-import { composeNow, pollOnce, runDaemon } from "./watcher.js";
+import { backfill, composeNow, pollOnce, runDaemon } from "./watcher.js";
 import { loadState } from "./state.js";
 
 function requireSecrets(needAnthropic: boolean): void {
@@ -12,9 +12,26 @@ function requireSecrets(needAnthropic: boolean): void {
   }
 }
 
-const args = new Set(process.argv.slice(2));
+const argv = process.argv.slice(2);
+const args = new Set(argv);
 
-if (args.has("--compose-now")) {
+function flagValue(flag: string): string | undefined {
+  const i = argv.indexOf(flag);
+  if (i >= 0 && argv[i + 1] && !argv[i + 1]!.startsWith("-")) return argv[i + 1];
+  const eq = argv.find((a) => a.startsWith(`${flag}=`));
+  return eq?.slice(flag.length + 1);
+}
+
+if (args.has("--backfill") || argv.some((a) => a.startsWith("--backfill="))) {
+  // Seed pending from the last N days (default 7), then draft immediately.
+  requireSecrets(true);
+  const days = Number(flagValue("--backfill") ?? "7") || 7;
+  const state = await loadState();
+  const n = await backfill(state, days);
+  console.log(`Backfilled ${n} change(s) from the last ${days}d.`);
+  const path = await composeNow(state);
+  console.log(path ? `Drafted: ${path}` : "Nothing worth drafting.");
+} else if (args.has("--compose-now")) {
   // Draft immediately from whatever is pending — for testing the writer.
   requireSecrets(true);
   const state = await loadState();
