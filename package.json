@@ -1,0 +1,24 @@
+{
+  "name": "dcc-watch",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Watches the in-scope dcccrypto/percolator repos and drafts a professional technical X thread every few days.",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "once": "tsx src/index.ts --once",
+    "compose": "tsx src/index.ts --compose-now",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.68.0",
+    "@octokit/rest": "^22.0.0",
+    "dotenv": "^17.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.7.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
