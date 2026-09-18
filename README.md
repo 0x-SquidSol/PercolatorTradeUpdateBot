@@ -1,4 +1,4 @@
-# dcc-watch
+# PercolatorTradeUpdateBot
 
 A long-running daemon that watches the in-scope **dcccrypto/percolator** repos
 and drafts a professional technical **X (Twitter) thread every few days** —
