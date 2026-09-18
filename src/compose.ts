@@ -92,12 +92,22 @@ export async function draftPost(state: State): Promise<DraftedPost | null> {
     `\n\nWrite the update thread now.`,
   ].join("");
 
+  // Opus 5 thinks by default (adaptive); max_tokens must leave room for both the
+  // reasoning and the answer, or the thread comes back empty. Bound the thinking
+  // with effort — this is summarization, not a hard reasoning task.
   const resp = await anthropic.messages.create({
     model: CONFIG.anthropicModel,
-    max_tokens: 2000,
+    max_tokens: 16000,
+    thinking: { type: "adaptive" },
+    output_config: { effort: "medium" },
     system,
     messages: [{ role: "user", content: userMessage }],
   });
+
+  if (resp.stop_reason === "refusal") {
+    console.warn("[compose] model declined to draft this cycle.");
+    return null;
+  }
 
   const thread = resp.content
     .filter((b): b is Anthropic.TextBlock => b.type === "text")
