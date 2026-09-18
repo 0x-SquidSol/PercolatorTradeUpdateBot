@@ -69,7 +69,7 @@ export const CONFIG = {
   anthropicKey: process.env.ANTHROPIC_API_KEY ?? "",
   anthropicModel: process.env.ANTHROPIC_MODEL ?? "claude-opus-5",
   pollIntervalSeconds: num("POLL_INTERVAL_SECONDS", 300),
-  postIntervalDays: num("POST_INTERVAL_DAYS", 2),
+  postIntervalDays: num("POST_INTERVAL_DAYS", 3),
   draftsDir: process.env.DRAFTS_DIR ?? "drafts",
   gitCommitDrafts: bool("GIT_COMMIT_DRAFTS", false),
   /** Cap on diff/PR text handed to the model per compose, to bound cost. */

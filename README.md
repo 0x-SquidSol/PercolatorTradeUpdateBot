@@ -24,7 +24,7 @@ deployed on-chain** from **merged-but-not-yet-live**.
 - **Watch** — every `POLL_INTERVAL_SECONDS` (default 300s) it checks each repo's
   default-branch head; on a change it records the new commits and merged PRs into
   `state.json`. This is the continuous watch.
-- **Compose** — every `POST_INTERVAL_DAYS` (default 2) it bundles everything
+- **Compose** — every `POST_INTERVAL_DAYS` (default 3) it bundles everything
   accumulated, pulls file-level diff stats, adds the ledger context, and asks
   Claude to write the thread (`prompts/post-system.md` is the writer's brief).
 - **Deliver** — writes `drafts/YYYY-MM-DD-update.md` (the thread + a collapsible
