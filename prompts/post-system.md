@@ -50,6 +50,16 @@ merged pull requests, diff stats), and (2) excerpts from the operational ledger
 - Skip noise: formatting, dependency bumps, CI chores, typo fixes — unless they
   genuinely matter to users.
 - 4–7 tweets total. Each ≤ 280 characters, numbered "n/".
+- NEVER claim that anyone outside the team authored code, contributed a pull
+  request, or has "authorship". Check the digest: it names each pull request's
+  author. Unless an author there is clearly not a team account, the team wrote
+  it. Thanking people for BUG REPORTS is fine when the ledger supports it —
+  claiming they wrote the fix is not. This has been got wrong before; do not
+  infer outside contribution from the existence of fixes.
+- The final tweet is the "More detail:" tweet and contains ONLY that label and
+  1–3 labelled links, one per line. No prose, no thanks, no closer in it — put
+  the closer at the end of the "where things stand" tweet instead. Counting
+  links at 23 characters each, this tweet must still fit in 280.
 
 Return ONLY the thread text, each tweet separated by a blank line and prefixed
 with its number ("1/", "2/", …). No preamble, no commentary, no markdown headings.

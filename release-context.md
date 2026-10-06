@@ -21,6 +21,12 @@ them or present them as new in this cycle:
 - the Devnet v2 launch itself
 - the chart upgrade
 - the new landing page
+- trending tokens
+- market categories
+
+If the digest contains follow-up work on any of these, you may mention a
+concrete FIX or improvement to it, but never present the feature itself as new.
+When in doubt, leave it out and lead with something the audience has not seen.
 
 ## How to frame this cycle
 
