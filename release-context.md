@@ -3,17 +3,42 @@
 Facts the operational ledger does not record yet. Treat as true. Delete or
 update this file when it goes stale; an absent file changes nothing.
 
-## Devnet v2 — 1 October 2026
+## Devnet v2 — LIVE since 1 October 2026
 
-Devnet v2 goes live tomorrow, 1 October 2026.
+Devnet v2 launched on 1 October 2026 and is live and open to the public. It is
+no longer upcoming. Do not describe it as "launching", "tomorrow", or "coming" —
+people are trading on it now.
 
-This cycle was the run-up to it. Frame the update as preparation for that
-launch: the safety work, the hardening and the build discipline described in
-the code digest are what had to land first.
+Devnet is a public TEST network: real software, test money. Say that plainly.
+Nothing in the digest is deployed to a main network, and there is no mainnet
+launch date to announce.
 
-Hold the line the system prompt already draws — devnet v2 is **launching**, it
-is not live yet at the time of writing, and nothing in the digest should be
-described as already deployed to the main network. Devnet is a test network:
-real software, test money. Say so plainly rather than implying mainnet.
+## Already announced — do not re-announce as news
 
-No promises beyond the date itself. No price, token or returns talk.
+These have already gone out and the audience has seen them. Do not lead with
+them or present them as new in this cycle:
+
+- the Devnet v2 launch itself
+- the chart upgrade
+- the new landing page
+
+## How to frame this cycle
+
+This is the first full cycle AFTER launch, with real users on the network. The
+story is the post-launch response: what real usage surfaced, how quickly it was
+found and fixed, and what is now more reliable because of it. That is a
+genuinely good story — shipping fixes fast in response to real traders is
+stronger evidence of momentum than a pre-launch checklist.
+
+Lead with what improved for people using it, not with the launch.
+
+## Community reports
+
+Several fixes this cycle began as bug reports from people using the public
+devnet. Crediting that is accurate and welcome.
+
+Be precise about it: these are REPORTS from users. The merged pull requests in
+the digest are authored by the team, so do not claim outside contributors wrote
+the code unless the digest actually shows a non-team author.
+
+No promises beyond what has shipped. No price, token or returns talk.
